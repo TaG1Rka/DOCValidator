@@ -42,6 +42,26 @@ class MAINWINDOW(QWidget):
         vboxlayout.addLayout(buttonhbox)
         self.setLayout(vboxlayout)
 
+    def check(self):
+        cname = self.cname.text()
+        inn = self.leinn.text()
+        ok_inn = INN.is_valid(inn)
+        ogrn = self.leogrn.text()
+        ok_ogrn = OGRN.is_valid(ogrn)
+        if ok_inn and ok_ogrn:
+            QMessageBox.information(self, 'Результат', 'Валидация пройдена!\nВсе данные введены в документ>', QMessageBox.Ok)
+            f.write('\n•••' + cname + '|ИНН: ' + inn + '|ОГРН: ' + ogrn + '|•••')
+            f.close()
+        elif not ok_inn and not ok_ogrn:
+            QMessageBox.information(self, 'Результат', 'Валидация не пройдена!\nДанные ОГРН и ИНН не существуют',
+                                    QMessageBox.Ok)
+        elif ok_inn:
+            QMessageBox.information(self, 'Результат', 'Валидация не пройдена!\nДанный ОГРН не существует',
+                                    QMessageBox.Ok)
+        else:
+            QMessageBox.information(self, 'Результат', 'Валидация не пройдена!\nДанный ИНН не существует',
+                                    QMessageBox.Ok)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
