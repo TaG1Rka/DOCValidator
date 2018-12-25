@@ -12,3 +12,16 @@ class INN:
             return True
         else:
             return False
+
+
+class OGRN:
+    @classmethod
+    def is_valid(cls, ogrn):
+        if len(ogrn) != 13 or not ogrn.isdigit():
+            return False
+        ogrn = int(ogrn)
+        ogrn_12 = ogrn % 100
+        if (str(ogrn_12 % 11))[-1] == str(ogrn)[-2]:
+            return True
+        else:
+            return False
